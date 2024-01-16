@@ -5,14 +5,12 @@ import App from './App';
 
 const root = document.getElementById('root');
 
-// ReactDOM.render ni createRoot bilan almashtirish
+// createRoot ni ishlatish
 const reactRoot = createRoot(root);
 
-// React.StrictMode ni qo'shish
+// React.StrictMode ni olib tashlash
 reactRoot.render(
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>
+  <Router>
+    <App />
+  </Router>
 );
