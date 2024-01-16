@@ -6,7 +6,7 @@ import PlanetContainer from '../components/planets/PlanetContainer';
 import MainSection from '../components/main/MainSection';
 import Heading from '../components/headings/Heading';
 import PlanetContent from '../components/planetContent/PlanetContent';
-
+import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
 import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
 import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
 import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
