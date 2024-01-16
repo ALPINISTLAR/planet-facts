@@ -8,6 +8,7 @@ import Heading from '../components/headings/Heading';
 import PlanetContent from '../components/planetContent/PlanetContent';
 import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
 import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
+import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
 import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
 import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
 import SurfaceGeologyBtn from '../components/planetContentNavigation/SurfaceGeologyBtn';
