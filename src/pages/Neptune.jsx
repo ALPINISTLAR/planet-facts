@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import APIData from '../APIData';
-import MainWrapper from '../components/main/MainWrapper';
-import PlanetContainer from '../components/planets/PlanetContainer';
-import MainSection from '../components/main/MainSection';
-import Heading from '../components/headings/Heading';
-import PlanetContent from '../components/planetContent/PlanetContent';
-import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
-import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
-import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
-import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
-import SurfaceGeologyBtn from '../components/planetContentNavigation/SurfaceGeologyBtn';
-import WikiLink from '../components/wikiLink/WikiLink';
-import NeptuneImg from '../../public/planet-neptune.svg';
-import NeptuneInternalImg from '../../public/planet-neptune-internal.svg';
-import NeptuneGeoImg from '../../public/geology-neptune.png';
-import PlanetFactsContainer from '../components/PlanetFactsCard/PlanetFactsContainer';
-import PlanetFactsCard from '../components/PlanetFactsCard/PlanetFactsCard';
 import {
+  MainWrapper,
+  PlanetContainer,
+  MainSection,
+  Heading,
+  PlanetContent,
+  PlanetContentContainer,
+  ContentNavigationContainer,
+  WikiLink,
+} from '../components';
+import {
+  OverviewBtn,
+  InternalStructureBtn,
+  SurfaceGeologyBtn,
+} from '../components/planetContentNavigation';
+import {
+  PlanetFactsContainer,
+  PlanetFactsCard,
   PlanetFactsHeadingRotation,
   PlanetFactsHeadingRevolution,
   PlanetFactsHeadingRadius,
   PlanetFactsHeadingTemp,
-} from '../components/PlanetFactsCard/PlanetFactsHeading';
-import PlanetFact from '../components/PlanetFactsCard/PlanetFact';
-import Planet from '../components/planets/Planet';
-import PlanetGeology from '../components/planets/PlanetGeology';
+  PlanetFact,
+} from '../components/PlanetFactsCard';
+import { Planet, PlanetGeology } from '../components/planets';
+import {
+  NeptuneImg,
+  NeptuneInternalImg,
+  NeptuneGeoImg,
+} from '../../public';
 
 const NeptuneContainer = styled(PlanetContainer)`
   height: 45rem;

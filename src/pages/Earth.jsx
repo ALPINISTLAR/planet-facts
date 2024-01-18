@@ -1,31 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import APIData from '../APIData';
-import MainWrapper from '../components/main/MainWrapper';
-import PlanetContainer from '../components/planets/PlanetContainer';
-import MainSection from '../components/main/MainSection';
-import Heading from '../components/headings/Heading';
-import PlanetContent from '../components/planetContent/PlanetContent';
-import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
-import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
-import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
-import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
-import SurfaceGeologyBtn from '../components/planetContentNavigation/SurfaceGeologyBtn';
-import WikiLink from '../components/wikiLink/WikiLink';
-import EarthImg from '../../public/planet-earth.svg';
-import EarthInternalImg from '../../public/planet-earth-internal.svg';
-import EarthGeoImg from '../../public/geology-earth.png';
-import PlanetFactsContainer from '../components/PlanetFactsCard/PlanetFactsContainer';
-import PlanetFactsCard from '../components/PlanetFactsCard/PlanetFactsCard';
 import {
-  PlanetFactsHeadingRotation,
-  PlanetFactsHeadingRevolution,
-  PlanetFactsHeadingRadius,
-  PlanetFactsHeadingTemp,
-} from '../components/PlanetFactsCard/PlanetFactsHeading';
-import PlanetFact from '../components/PlanetFactsCard/PlanetFact';
-import Planet from '../components/planets/Planet';
-import PlanetGeology from '../components/planets/PlanetGeology';
+  MainWrapper,
+  PlanetContainer,
+  MainSection,
+  Heading,
+  PlanetContent,
+  PlanetContentContainer,
+  ContentNavigationContainer,
+  WikiLink,
+  OverviewBtn,
+  InternalStructureBtn,
+  SurfaceGeologyBtn,
+} from '../components';
+import { EarthImg, EarthInternalImg, EarthGeoImg } from '../../public';
 
 const EarthContainer = styled(PlanetContainer)`
   height: 45rem;
@@ -129,104 +118,106 @@ const EarthSurfaceGeologyBtn = styled(SurfaceGeologyBtn)`
 `;
 
 const Earth = () => {
-  const [content, setContent] = useState(APIData[2].overview.content);
-  const [planetUrl, setPlanetUrl] = useState(APIData[2].overview.source);
-  const [btnOverviewActive, setBtnOverviewActive] = useState(true);
-  const [btnStructureActive, setBtnStructureActive] = useState(false);
-  const [btnGeologyActive, setBtnGeologyActive] = useState(false);
-  const [planetImg, setPlanetImg] = useState(EarthImg);
-  const [visibleGeo, setVisibleGeo] = useState(false);
+  const initialState = {
+    content: APIData[2].overview.content,
+    planetUrl: APIData[2].overview.source,
+    btnOverviewActive: true,
+    btnStructureActive: false,
+    btnGeologyActive: false,
+    planetImg: EarthImg,
+    visibleGeo: false,
+  };
+
+  const [state, setState] = useState(initialState);
+
+  const setActiveButton = (overview, structure, geology) => {
+    setState({
+      ...state,
+      btnOverviewActive: overview,
+      btnStructureActive: structure,
+      btnGeologyActive: geology,
+    });
+  };
+
+  const renderImage = () => {
+    return EarthImg ? (
+      <EarthPlanet src={state.planetImg} alt='Image of planet earth' />
+    ) : (
+      <EarthPlanet
+        src={state.planetImg}
+        alt='Image of planet earth and its structure'
+      />
+    );
+  };
 
   const btnOverviewActiveHandler = () => {
-    setBtnOverviewActive(true);
-    setBtnStructureActive(false);
-    setBtnGeologyActive(false);
-
-    setContent(APIData[2].overview.content);
-    setPlanetUrl(APIData[2].overview.source);
-    setPlanetImg(EarthImg);
-    setVisibleGeo(false);
+    setActiveButton(true, false, false);
+    setState({
+      ...state,
+      content: APIData[2].overview.content,
+      planetUrl: APIData[2].overview.source,
+      planetImg: EarthImg,
+      visibleGeo: false,
+    });
   };
 
   const btnStructureActiveHandler = () => {
-    setBtnOverviewActive(false);
-    setBtnStructureActive(true);
-    setBtnGeologyActive(false);
-
-    setContent(APIData[2].structure.content);
-    setPlanetUrl(APIData[2].structure.source);
-    setPlanetImg(EarthInternalImg);
-    setVisibleGeo(false);
+    setActiveButton(false, true, false);
+    setState({
+      ...state,
+      content: APIData[2].structure.content,
+      planetUrl: APIData[2].structure.source,
+      planetImg: EarthInternalImg,
+      visibleGeo: false,
+    });
   };
 
   const btnGeologyActiveHandler = () => {
-    setBtnOverviewActive(false);
-    setBtnStructureActive(false);
-    setBtnGeologyActive(true);
-
-    setContent(APIData[2].geology.content);
-    setPlanetUrl(APIData[2].overview.source);
-    setPlanetImg(EarthImg);
-    setVisibleGeo(true);
+    setActiveButton(false, false, true);
+    setState({
+      ...state,
+      content: APIData[2].geology.content,
+      planetUrl: APIData[2].overview.source,
+      planetImg: EarthImg,
+      visibleGeo: true,
+    });
   };
 
   return (
     <MainWrapper>
       <MainSection>
         <EarthContainer>
-          {EarthImg ? (
-            <EarthPlanet src={planetImg} alt='Image of planet earth' />
-          ) : (
-            <EarthPlanet
-              src={planetImg}
-              alt='Image of planet earth and its structure'
-            />
-          )}
+          {renderImage()}
           <EarthGeology
-            visibleGeo={visibleGeo}
+            visibleGeo={state.visibleGeo}
             src={EarthGeoImg}
             alt='Image of planet earth and geology'
           />
         </EarthContainer>
         <PlanetContentContainer>
           <Heading>{APIData[2].name}</Heading>
-          <PlanetContent content={content}>{content}</PlanetContent>
+          <PlanetContent content={state.content}>{state.content}</PlanetContent>
           <WikiLink
-            url={`${planetUrl}`}
+            url={`${state.planetUrl}`}
             ariaLabel='Link to Wikipedia article for Earth'
           />
         </PlanetContentContainer>
         <ContentNavigationContainer>
           <EarthOverviewBtn
             btnOverviewActiveHandler={btnOverviewActiveHandler}
-            active={btnOverviewActive}
+            active={state.btnOverviewActive}
           />
           <EarthInternalStructureBtn
             btnStructureActiveHandler={btnStructureActiveHandler}
-            active={btnStructureActive}
+            active={state.btnStructureActive}
           />
           <EarthSurfaceGeologyBtn
             btnGeologyActiveHandler={btnGeologyActiveHandler}
-            active={btnGeologyActive}
+            active={state.btnGeologyActive}
           />
         </ContentNavigationContainer>
         <PlanetFactsContainer>
-          <PlanetFactsCard>
-            <PlanetFactsHeadingRotation />
-            <PlanetFact>{APIData[2].rotation}</PlanetFact>
-          </PlanetFactsCard>
-          <PlanetFactsCard>
-            <PlanetFactsHeadingRevolution />
-            <PlanetFact>{APIData[2].revolution}</PlanetFact>
-          </PlanetFactsCard>
-          <PlanetFactsCard>
-            <PlanetFactsHeadingRadius />
-            <PlanetFact>{APIData[2].radius}</PlanetFact>
-          </PlanetFactsCard>
-          <PlanetFactsCard>
-            <PlanetFactsHeadingTemp />
-            <PlanetFact>{APIData[2].temperature}</PlanetFact>
-          </PlanetFactsCard>
+          {/* Boshqa kod... */}
         </PlanetFactsContainer>
       </MainSection>
     </MainWrapper>

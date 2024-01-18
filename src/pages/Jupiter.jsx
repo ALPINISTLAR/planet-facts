@@ -2,30 +2,35 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import APIData from '../APIData';
 import MainWrapper from '../components/main/MainWrapper';
-import PlanetContainer from '../components/planets/PlanetContainer';
-import MainSection from '../components/main/MainSection';
-import Heading from '../components/headings/Heading';
-import PlanetContent from '../components/planetContent/PlanetContent';
-import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
-import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
-import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
-import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
-import SurfaceGeologyBtn from '../components/planetContentNavigation/SurfaceGeologyBtn';
-import WikiLink from '../components/wikiLink/WikiLink';
-import JupiterImg from '../../public/planet-jupiter.svg';
-import JupiterInternalImg from '../../public/planet-jupiter-internal.svg';
-import JupiterGeoImg from '../../public/geology-jupiter.png';
-import PlanetFactsContainer from '../components/PlanetFactsCard/PlanetFactsContainer';
-import PlanetFactsCard from '../components/PlanetFactsCard/PlanetFactsCard';
 import {
+  PlanetContainer,
+  MainSection,
+  Heading,
+  PlanetContent,
+  PlanetContentContainer,
+  ContentNavigationContainer,
+  WikiLink,
+} from '../components';
+import {
+  OverviewBtn,
+  InternalStructureBtn,
+  SurfaceGeologyBtn,
+} from '../components/planetContentNavigation';
+import {
+  PlanetFactsContainer,
+  PlanetFactsCard,
   PlanetFactsHeadingRotation,
   PlanetFactsHeadingRevolution,
   PlanetFactsHeadingRadius,
   PlanetFactsHeadingTemp,
-} from '../components/PlanetFactsCard/PlanetFactsHeading';
-import PlanetFact from '../components/PlanetFactsCard/PlanetFact';
-import Planet from '../components/planets/Planet';
-import PlanetGeology from '../components/planets/PlanetGeology';
+  PlanetFact,
+} from '../components/PlanetFactsCard';
+import { Planet, PlanetGeology } from '../components/planets';
+import {
+  JupiterImg,
+  JupiterInternalImg,
+  JupiterGeoImg,
+} from '../../public';
 
 const JupiterContainer = styled(PlanetContainer)`
   height: 58.2rem;
@@ -54,7 +59,7 @@ const JupiterGeology = styled(PlanetGeology)`
   }
 `;
 
-const JupiterOverviewBtn = styled(OverviewBtn)`
+const StyledOverviewBtn = styled(OverviewBtn)`
   background-color: ${(props) =>
     props.active ? ({ theme }) => theme.colors.bloodMoon : 'transparent'};
 
@@ -79,7 +84,7 @@ const JupiterOverviewBtn = styled(OverviewBtn)`
   }
 `;
 
-const JupiterInternalStructureBtn = styled(InternalStructureBtn)`
+const StyledInternalStructureBtn = styled(InternalStructureBtn)`
   background-color: ${(props) =>
     props.active ? ({ theme }) => theme.colors.bloodMoon : 'transparent'};
 
@@ -104,7 +109,7 @@ const JupiterInternalStructureBtn = styled(InternalStructureBtn)`
   }
 `;
 
-const JupiterSurfaceGeologyBtn = styled(SurfaceGeologyBtn)`
+const StyledSurfaceGeologyBtn = styled(SurfaceGeologyBtn)`
   background-color: ${(props) =>
     props.active ? ({ theme }) => theme.colors.bloodMoon : 'transparent'};
 
@@ -138,11 +143,14 @@ const Jupiter = () => {
   const [planetImg, setPlanetImg] = useState(JupiterImg);
   const [visibleGeo, setVisibleGeo] = useState(false);
 
-  const btnOverviewActiveHandler = () => {
-    setBtnOverviewActive(true);
-    setBtnStructureActive(false);
-    setBtnGeologyActive(false);
+  const setActiveButton = (overview, structure, geology) => {
+    setBtnOverviewActive(overview);
+    setBtnStructureActive(structure);
+    setBtnGeologyActive(geology);
+  };
 
+  const btnOverviewActiveHandler = () => {
+    setActiveButton(true, false, false);
     setContent(APIData[4].overview.content);
     setPlanetUrl(APIData[4].overview.source);
     setPlanetImg(JupiterImg);
@@ -150,10 +158,7 @@ const Jupiter = () => {
   };
 
   const btnStructureActiveHandler = () => {
-    setBtnOverviewActive(false);
-    setBtnStructureActive(true);
-    setBtnGeologyActive(false);
-
+    setActiveButton(false, true, false);
     setContent(APIData[4].structure.content);
     setPlanetUrl(APIData[4].structure.source);
     setPlanetImg(JupiterInternalImg);
@@ -161,10 +166,7 @@ const Jupiter = () => {
   };
 
   const btnGeologyActiveHandler = () => {
-    setBtnOverviewActive(false);
-    setBtnStructureActive(false);
-    setBtnGeologyActive(true);
-
+    setActiveButton(false, false, true);
     setContent(APIData[4].geology.content);
     setPlanetUrl(APIData[4].overview.source);
     setPlanetImg(JupiterImg);
@@ -198,15 +200,15 @@ const Jupiter = () => {
           />
         </PlanetContentContainer>
         <ContentNavigationContainer>
-          <JupiterOverviewBtn
+          <StyledOverviewBtn
             btnOverviewActiveHandler={btnOverviewActiveHandler}
             active={btnOverviewActive}
           />
-          <JupiterInternalStructureBtn
+          <StyledInternalStructureBtn
             btnStructureActiveHandler={btnStructureActiveHandler}
             active={btnStructureActive}
           />
-          <JupiterSurfaceGeologyBtn
+          <StyledSurfaceGeologyBtn
             btnGeologyActiveHandler={btnGeologyActiveHandler}
             active={btnGeologyActive}
           />

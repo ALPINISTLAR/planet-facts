@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import APIData from '../APIData';
-import MainWrapper from '../components/main/MainWrapper';
-import PlanetContainer from '../components/planets/PlanetContainer';
-import MainSection from '../components/main/MainSection';
-import Heading from '../components/headings/Heading';
-import PlanetContent from '../components/planetContent/PlanetContent';
-import ContentNavigationContainer from '../components/planetContentNavigation/ContentNavigationContainer';
-import PlanetContentContainer from '../components/planetContent/planetContentContainer/PlanetContentContainer';
-import OverviewBtn from '../components/planetContentNavigation/OverviewBtn';
-import InternalStructureBtn from '../components/planetContentNavigation/InternalStructureBtn';
-import SurfaceGeologyBtn from '../components/planetContentNavigation/SurfaceGeologyBtn';
-import WikiLink from '../components/wikiLink/WikiLink';
-import UranusImg from '../../public/planet-uranus.svg';
-import UranusInternalImg from '../../public/planet-uranus-internal.svg';
-import UranusGeoImg from '../../public/geology-uranus.png';
-import PlanetFactsContainer from '../components/PlanetFactsCard/PlanetFactsContainer';
-import PlanetFactsCard from '../components/PlanetFactsCard/PlanetFactsCard';
 import {
+  MainWrapper,
+  PlanetContainer,
+  MainSection,
+  Heading,
+  PlanetContent,
+  ContentNavigationContainer,
+  PlanetContentContainer,
+  WikiLink,
+} from '../components';
+import {
+  OverviewBtn,
+  InternalStructureBtn,
+  SurfaceGeologyBtn,
+} from '../components/planetContentNavigation';
+import {
+  PlanetFactsContainer,
+  PlanetFactsCard,
   PlanetFactsHeadingRotation,
   PlanetFactsHeadingRevolution,
   PlanetFactsHeadingRadius,
   PlanetFactsHeadingTemp,
-} from '../components/PlanetFactsCard/PlanetFactsHeading';
-import PlanetFact from '../components/PlanetFactsCard/PlanetFact';
-import Planet from '../components/planets/Planet';
-import PlanetGeology from '../components/planets/PlanetGeology';
+  PlanetFact,
+} from '../components/PlanetFactsCard';
+import { Planet, PlanetGeology } from '../components/planets';
+import {
+  UranusImg,
+  UranusInternalImg,
+  UranusGeoImg,
+} from '../../public';
 
 const UranusContainer = styled(PlanetContainer)`
   height: 45.8rem;

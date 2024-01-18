@@ -132,7 +132,7 @@ const JupiterSurfaceGeologyBtn = styled(SurfaceGeologyBtn)`
   }
 `;
 
-const Jupiter = () => {
+const Mars = () => {
   const [content, setContent] = useState(APIData[4].overview.content);
   const [planetUrl, setPlanetUrl] = useState(APIData[4].overview.source);
   const [btnOverviewActive, setBtnOverviewActive] = useState(true);
@@ -237,4 +237,4 @@ const Jupiter = () => {
   );
 };
 
-export default Jupiter;
+export default Mars;
